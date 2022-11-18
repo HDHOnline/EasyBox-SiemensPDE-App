@@ -1,8 +1,7 @@
-# Pi4J V2 :: CrowPi Examples
+# Pi4J V2 :: HDH
 
 [![Code Build Status](https://img.shields.io/github/workflow/status/Pi4J/pi4j-example-crowpi/CrowPi%20CI?label=code)](https://github.com/Pi4J/pi4j-example-crowpi/actions/workflows/crowpi.yml)
 [![Docs Build Status](https://img.shields.io/github/checks-status/Pi4J/pi4j-example-crowpi/gh-pages?label=docs)](https://pi4j.com/pi4j-example-crowpi/)
-[![Contributors](https://img.shields.io/github/contributors/Pi4J/pi4j-example-crowpi)](https://github.com/ppmathis/fhnw-crowpi/graphs/contributors)
 [![License](https://img.shields.io/github/license/Pi4J/pi4j-example-crowpi)](https://github.com/Pi4J/pi4j-example-crowpi/blob/main/LICENSE)
 
 This project contains both example applications and ready-made component classes for interacting with the
@@ -15,36 +14,10 @@ The provided component classes as part of this library provide an implementation
 table provides an overview of all supported components with a link to their implementation and example app:
 
 
-| **Component**               | **Example App**                                                                                                 | **Implementation**                                                                                                        |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Button                      | [ButtonApp.java](src/main/java/com/pi4j/crowpi/applications/ButtonApp.java)                                     | [ButtonComponent.java](src/main/java/com/pi4j/crowpi/components/ButtonComponent.java)                                     |
-| ButtonMatrix                | [ButtonApp.java](src/main/java/com/pi4j/crowpi/applications/ButtonApp.java)                                     | [ButtonComponent.java](src/main/java/com/pi4j/crowpi/components/ButtonMatrixComponent.java)                               |
-| Buzzer                      | [BuzzerApp.java](src/main/java/com/pi4j/crowpi/applications/BuzzerApp.java)                                     | [BuzzerComponent.java](src/main/java/com/pi4j/crowpi/components/BuzzerComponent.java)                                     |
-| Humidity/Temperature Sensor | [HumiTempApp.java](src/main/java/com/pi4j/crowpi/applications/HumiTempApp.java)                                 | [HumiTempComponent.java](src/main/java/com/pi4j/crowpi/components/HumiTempComponent.java)                                 |
-| IR Receiver                 | [IrReceiverApp.java](src/main/java/com/pi4j/crowpi/applications/IrReceiverApp.java)                             | [IrReceiverComponent.java](src/main/java/com/pi4j/crowpi/components/IrReceiverComponent.java)                             |
-| LCD Display                 | [IrReceiverApp.java](src/main/java/com/pi4j/crowpi/applications/IrReceiverApp.java)                             | [IrReceiverComponent.java](src/main/java/com/pi4j/crowpi/components/LcdDisplayComponent.java)                             |
-| LED Matrix                  | [IrReceiverApp.java](src/main/java/com/pi4j/crowpi/applications/IrReceiverApp.java)                             | [IrReceiverComponent.java](src/main/java/com/pi4j/crowpi/components/LcdDisplayComponent.java)                             |
-| Light Sensor                | [LightSensorApp.java](src/main/java/com/pi4j/crowpi/applications/LightSensorApp.java)                           | [LightSensorComponent.java](src/main/java/com/pi4j/crowpi/components/LightSensorComponent.java)                           |
-| PIR Motion Sensor           | [PirMotionSensorApp.java](src/main/java/com/pi4j/crowpi/applications/PirMotionSensorApp.java)                   | [PirMotionSensorComponent.java](src/main/java/com/pi4j/crowpi/components/PirMotionSensorComponent.java)                   |
-| Relay                       | [RelayApp.java](src/main/java/com/pi4j/crowpi/applications/RelayApp.java)                                       | [RelayComponent.java](src/main/java/com/pi4j/crowpi/components/RelayComponent.java)                                       |
-| RFID                        | [RfidApp.java](src/main/java/com/pi4j/crowpi/applications/RfidApp.java)                                         | [RfidComponent.java](src/main/java/com/pi4j/crowpi/components/RfidComponent.java)                                         |
-| Servo Motor                 | [ServoMotorApp.java](src/main/java/com/pi4j/crowpi/applications/ServoMotorApp.java)                             | [ServoMotorComponent.java](src/main/java/com/pi4j/crowpi/components/ServoMotorComponent.java)                             |
-| Seven Segment Display       | [SevenSegmentApp.java](src/main/java/com/pi4j/crowpi/applications/SevenSegmentApp.java)                         | [SevenSegmentComponent.java](src/main/java/com/pi4j/crowpi/components/SevenSegmentComponent.java)                         |
-| Step Motor                  | [StepMotorApp.java](src/main/java/com/pi4j/crowpi/applications/StepMotorApp.java)                               | [StepMotorComponent.java](src/main/java/com/pi4j/crowpi/components/StepMotorComponent.java)                               |
-| Tilt Sensor                 | [StepMotorApp.java](src/main/java/com/pi4j/crowpi/applications/StepMotorApp.java)                               | [StepMotorComponent.java](src/main/java/com/pi4j/crowpi/components/TiltSensorComponent.java)                              |
-| Touch Sensor                | [TouchSensorApp.java](src/main/java/com/pi4j/crowpi/applications/TouchSensorApp.java)                           | [TouchSensorComponent.java](src/main/java/com/pi4j/crowpi/components/TouchSensorComponent.java)                           |
-| Ultrasonic Distance Sensor  | [UltrasonicDistanceSensorApp.java](src/main/java/com/pi4j/crowpi/applications/UltrasonicDistanceSensorApp.java) | [UltrasonicDistanceSensorComponent.java](src/main/java/com/pi4j/crowpi/components/UltrasonicDistanceSensorComponent.java) |
-| Vibration Motor             | [VibrationMotorApp.java](src/main/java/com/pi4j/crowpi/applications/VibrationMotorApp.java)                     | [VibrationMotorComponent.java](src/main/java/com/pi4j/crowpi/components/VibrationMotorComponent.java)                     |
-
-Due to very tight timing constraints, two of the components had to use an alternative implementation without relying on Java. This could be
-improved in the future by moving this logic into native code using JNI or putting these components behind a dedicated microcontroller:
-
-- **IR Receiver:** This component relies on the `mode2` binary for retrieving the signal pulses, provided as part of the LIRC software
-  bundle. While all parsing and logic has been implemented in Java, measuring the pulses accurately enough was not possible.
-- **Humidity/Temperature Sensor:** Due to being based on a DHT11 sensor, this component requires an extreme amount of precision in terms of
-  timing, resulting in measurement failures even when running as native code on a Raspberry Pi. To still provide some support for this
-  component, it requires setting up the `dht11` [kernel module](https://github.com/torvalds/linux/blob/master/drivers/iio/humidity/dht11.c)
-  which is part of Linux Industrial I/O.
+| **Component** | **Example App**                                                                   | **Implementation**                                                                    |
+|---------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| Buzzer        | [BuzzerApp.java](src/main/java/com/pi4j/crowpi/applications/BuzzerApp.java)       | [BuzzerComponent.java](src/main/java/com/pi4j/crowpi/components/BuzzerComponent.java) |
+| SiemensPDE    | [SiemensPDE.java](src/main/java/com/pi4j/crowpi/applications/Serial2Siemens.java) | [Siemens.java](src/main/java/com/pi4j/crowpi/components/SiemensPDE.java)              |
 
 The CrowPi OS image mentioned further down below supports both workarounds out of the box without further configuration.
 
@@ -156,28 +129,112 @@ $ sudo java --module-path . --module com.pi4j.crowpi/com.pi4j.crowpi.Launcher $@
 [main] INFO com.pi4j.platform.impl.DefaultRuntimePlatforms - adding platform to managed platform map [id=raspberrypi; name=RaspberryPi Platform; priority=5; class=com.pi4j.crowpi.helpers.CrowPiPlatform]
 > The following launch targets are available:
 1) Exit launcher without running application
-2) ButtonApp (com.pi4j.crowpi.applications.ButtonApp)
-3) ButtonMatrixApp (com.pi4j.crowpi.applications.ButtonMatrixApp)
+2) Serial2IPApp (com.pi4j.crowpi.applications.Serial2IPApp)
+3) Serial2Siemens (com.pi4j.crowpi.applications.Serial2Siemens)
 4) BuzzerApp (com.pi4j.crowpi.applications.BuzzerApp)
-5) ExampleApp (com.pi4j.crowpi.applications.ExampleApp)
-6) HumiTempApp (com.pi4j.crowpi.applications.HumiTempApp)
-7) IrReceiverApp (com.pi4j.crowpi.applications.IrReceiverApp)
-8) LcdDisplayApp (com.pi4j.crowpi.applications.LcdDisplayApp)
-9) LedMatrixApp (com.pi4j.crowpi.applications.LedMatrixApp)
-10) LightSensorApp (com.pi4j.crowpi.applications.LightSensorApp)
-11) RfidApp (com.pi4j.crowpi.applications.RfidApp)
-12) PirMotionSensorApp (com.pi4j.crowpi.applications.PirMotionSensorApp)
-13) RelayApp (com.pi4j.crowpi.applications.RelayApp)
-14) ServoMotorApp (com.pi4j.crowpi.applications.ServoMotorApp)
-15) SevenSegmentApp (com.pi4j.crowpi.applications.SevenSegmentApp)
-16) SoundSensorApp (com.pi4j.crowpi.applications.SoundSensorApp)
-17) StepMotorApp (com.pi4j.crowpi.applications.StepMotorApp)
-18) TiltSensorApp (com.pi4j.crowpi.applications.TiltSensorApp)
-19) TouchSensorApp (com.pi4j.crowpi.applications.TouchSensorApp)
-20) UltrasonicDistanceSensorApp (com.pi4j.crowpi.applications.UltrasonicDistanceSensorApp)
-21) VibrationMotorApp (com.pi4j.crowpi.applications.VibrationMotorApp)
 > Please choose your desired launch target by typing its number:
 ```
+
+## DOCUMENTATION for setting up environment
+- connect github to intelliJ
+- recommendation for updates time to time
+- https://github.com/HDHOnline/cuddly-broccoli/blob/main/resources/general.sh
+- https://github.com/HDHOnline/cuddly-broccoli/blob/main/resources/serial2ip.sh
+
+
+## DOCUMENTATION for setting up a new Device
+![img.png](img.png)
+- Setup hardware & OS (Update Script)
+- Setup deployment process
+- Setting up config.ini and deploy
+- Connect a new Device to IOT Manager
+- ID & Key
+- Select the application to deploy (deployment process)
+
+## DOCUMENTATION for implementing a new Artifact
+- connect a artifact to IOT Manager so it can be deployed
+- Deployment-Process
+
+## DOCUMENTATION for changing / updating artifacts
+- deploy to one or every device?
+- how to use and make application changes?
+
+## DOCUMENTATION for Serial2IP
+- Requirements for SerialPort on DAZ
+
+from here, serial port event is taking over action
+
+call test function for sending "7" to signages, set lastValue and check TCP connection
+this is a visual test-procedure for the people in the field
+
+Todo: implement a test function to inform the IOT Manager of the application deployed successfully
+
+
+listening on serial port and do handletelegram() if some event happens
+1) listening on serial port
+2) processing (take values, manipulate, build package)
+3) send over TCP to specified RS-IP Tunnels
+   at each step the functions catch possible errors and overcomes them at runtime
+
+overall structure:
+Component 1: Initialization / Test
+Component 2: Processing
+Component 3: Communication
+
+Documentation:
+
+The raspberry has to be assembled before shipping (Documentation, and standard image) That also includes a factory test (for serial connection for example).
+Burn SD card, plug it in, connect to network
+RPi tries to connect to IoT Manager to get Properties like DeviceNumber, Settings, blabla
+assign new unconfirmed device to a fleet (what applications should run)
+after assigning the fleet, it will run the configurations and commands
+after that, f.e. RPi its downloading .json files, keep it locally and update it when needed
+local copy is "backup" if no internet connection is available in parking garage or temporary
+if there is a update coming in runtime, rerun the application (restart from IOT Manager)
+
+TCP/IP Socket will be build up and closed every time we send to a IP-Address.
+Because keeping the connection will cause higher traffic on the LAN network.
+That will cause collisions and errors in slow and oly physical networks (like Arnsberg)
+
+If you need to update a new .json file, you need to change the variables in config.ini (please see on set up new device->config.ini)
+If you need to make changes to .json, you need to delete the old on local device (maybe cmd-line in IOT?, Process-Cmd)
+
+## DOCUMENTATION for SiemensPDE
+- needs USB2Serial converter & "Nullmodem"-cable
+
+## DOCUMENTATION for LEDMatrix-Control
+- https://github.com/HDHOnline/cuddly-broccoli/blob/main/resources/general.sh
+- https://github.com/HDHOnline/cuddly-broccoli/blob/main/resources/matrix.sh
+- see project https://github.com/HDHOnline/cuddly-broccoli/
+
+
+## DOCUMENTATION Credentials
+- github
+- jsonbin
+- jfrog
+- tailscale
+- crowpi
+
+- https://www.kp-networks.com/webmailer/?_task=mail&_mbox=mailto%40hdh-onlinehandel.de.Sent
+- Usr: developer@hdh-onlinehandel.de
+- PW: MaypcugweosBat/
+
+- GitHub Private Token: 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
+
+## Helpfull software
+- PacketSender
+- RealTerm
+- Advanced IP Scanner
+- Win32 DiskImager
+- WinSCP
+- Putty
+
+## Handover
+- remove tailscale
+- remove personalized passwords, etc.
+- setup raspberry password
+- setup OS
+-
 
 ## LICENSE
 

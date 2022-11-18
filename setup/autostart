@@ -1,0 +1,58 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          Für welches Programm ist das Script?
+# Required-Start:    
+# Required-Stop:     
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Kurze Beschreibung
+# Description:       Längere Beschreibung
+# zum loeschen des autostarts: sudo update-rc.d -f  autostart remove
+### END INIT INFO
+
+SERVICE="SiemensPDE"
+
+# Actions
+case "$1" in
+    start)
+        # START
+	if pgrep -x "$SERVICE" >/dev/null
+	then
+    	  echo "$SERVICE is running"
+	  sudo killall java
+	  sleep 2
+    	  cd /home/pi/deploy
+    	  sudo java -jar Serial2IP.jar    	  
+    	  sudo java -jar SiemensPDE.jar
+	else
+    	  echo "$SERVICE stopped"
+    	  cd /home/pi/deploy
+    	  sudo java -jar Serial2IP.jar
+    	  sudo java -jar SiemensPDE.jar
+	fi
+        ;;
+    stop)
+        # STOP
+	  sudo killall java
+        ;;
+    restart)
+        # RESTART
+	if pgrep -x "$SERVICE" >/dev/null
+	then
+    	  echo "$SERVICE is running"
+	  sudo killall java
+	  sleep 2
+    	  cd /home/pi/deploy
+    	  sudo java -jar Serial2IP.jar
+    	  sudo java -jar SiemensPDE.jar
+	else
+    	  echo "$SERVICE stopped"
+    	  cd /home/pi/deploy
+    	  sudo java -jar Serial2IP.jar
+    	  sudo java -jar SiemensPDE.jar
+	fi
+        ;;
+
+esac
+
+exit 0

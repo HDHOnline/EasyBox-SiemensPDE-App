@@ -26,4 +26,7 @@ open module com.pi4j.crowpi {
 
     // AWT
     requires java.desktop;
+    requires com.google.gson;
+    requires ini4j;
+    requires com.fazecast.jSerialComm;
 }

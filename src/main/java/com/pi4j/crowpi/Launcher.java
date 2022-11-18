@@ -1,15 +1,16 @@
 package com.pi4j.crowpi;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.pi4j.context.Context;
-import com.pi4j.crowpi.applications.*;
+import com.pi4j.crowpi.applications.BuzzerApp;
+import com.pi4j.crowpi.applications.Serial2Siemens;
 import com.pi4j.crowpi.helpers.CrowPiPlatform;
 import com.pi4j.crowpi.helpers.SingletonAppHelper;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Command(name = "CrowPi Example Launcher", version = "1.0.0", mixinStandardHelpOptions = true)
 public final class Launcher implements Runnable {
@@ -18,26 +19,8 @@ public final class Launcher implements Runnable {
      * Each class instance must implement the Application interface and gets automatically added as a subcommand.
      */
     public static final List<Application> APPLICATIONS = new ArrayList<>(Arrays.asList(
-        new ButtonApp(),
-        new ButtonMatrixApp(),
         new BuzzerApp(),
-        new ExampleApp(),
-        new HumiTempApp(),
-        new IrReceiverApp(),
-        new LcdDisplayApp(),
-        new LedMatrixApp(),
-        new LightSensorApp(),
-        new RfidApp(),
-        new PirMotionSensorApp(),
-        new RelayApp(),
-        new ServoMotorApp(),
-        new SevenSegmentApp(),
-        new SoundSensorApp(),
-        new StepMotorApp(),
-        new TiltSensorApp(),
-        new TouchSensorApp(),
-        new UltrasonicDistanceSensorApp(),
-        new VibrationMotorApp()
+        new Serial2Siemens()
     ));
 
     /**
