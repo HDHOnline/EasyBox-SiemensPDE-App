@@ -5,10 +5,10 @@
 # The whole repos was cloned to /home/pi/EasyBox-SiemensPDE-App by JFrog
 
 cd /etc/init.d/
-sudo cp /home/pi/EasyBox-SiemensPDE-App/setup/autostart autostart
-sudo chmod 755 /etc/init.d/autostart
-sudo update-rc.d autostart defaults
-# to delete autostart script: sudo update-rc.d -f autostart remove
+sudo cp /home/pi/EasyBox-SiemensPDE-App/setup/EasyBox-SiemensPDE autostart
+sudo chmod 755 /etc/init.d/EasyBox-SiemensPDE
+sudo update-rc.d EasyBox-SiemensPDE defaults
+# to delete EasyBox-SiemensPDE script: sudo update-rc.d -f EasyBox-SiemensPDE remove
 
 sudo systemctl disable hciuart
 
