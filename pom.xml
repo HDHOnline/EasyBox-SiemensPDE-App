@@ -27,6 +27,7 @@
         <!-- Project Dependencies -->
         <java.version>17</java.version>
         <pi4j.version>2.2.1</pi4j.version>
+        <logback.version>1.4.4</logback.version>
         <slf4j.version>2.0.3</slf4j.version>
         <picocli.version>4.7.0</picocli.version>
         <junit.version>5.9.0</junit.version>
@@ -79,19 +80,13 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- SLF4J API -->
+        <!-- pull in logback-core and slf4j-api -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
 
-        <!-- SLF4J Simple -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
 
         <!-- PicoCLI -->
         <dependency>
@@ -127,6 +122,11 @@
             <groupId>com.fazecast</groupId>
             <artifactId>jSerialComm</artifactId>
             <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.3</version>
         </dependency>
     </dependencies>
 

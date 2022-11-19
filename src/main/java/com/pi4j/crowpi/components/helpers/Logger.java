@@ -5,6 +5,7 @@ public class Logger {
 
     public Logger(Class<?> c) {
         this.logger = org.slf4j.LoggerFactory.getLogger(c);
+
     }
 
     public void trace(String message, Object... args) {

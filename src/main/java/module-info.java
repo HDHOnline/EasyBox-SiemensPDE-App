@@ -19,7 +19,6 @@ open module com.pi4j.crowpi {
 
     // SLF4J Modules
     requires org.slf4j;
-    requires org.slf4j.simple;
 
     // PicoCLI Modules
     requires info.picocli;
