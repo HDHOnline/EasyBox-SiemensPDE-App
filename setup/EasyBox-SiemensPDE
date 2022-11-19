@@ -17,6 +17,7 @@ APPNAME="Serial2Siemens"
 case "$1" in
     start)
         # START
+  sleep 20
 	if pgrep -x "$SERVICE" >/dev/null
 	then
     	  echo "$SERVICE is running"
