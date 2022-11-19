@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 
 public class SingletonAppHelper {
 
-	private static final int PORT = 65000;  // random large port number
+	private static final int PORT = 65010;  // random large port number
 	private static volatile ServerSocket s;
 
 	public static synchronized void initialize() {
