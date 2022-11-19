@@ -23,11 +23,11 @@ case "$1" in
 	  sudo pkill -9 -f $SERVICE
 	  sleep 2
     	  cd /home/pi/deploy
-    	  sudo java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
 	else
     	  echo "$SERVICE stopped"
     	  cd /home/pi/deploy
-    	  sudo java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
 	fi
         ;;
     stop)
@@ -42,11 +42,11 @@ case "$1" in
 	  sudo pkill -9 -f $SERVICE
 	  sleep 2
     	  cd /home/pi/deploy
-    	  sudo java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
 	else
     	  echo "$SERVICE stopped"
     	  cd /home/pi/deploy
-    	  sudo java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
 	fi
         ;;
 
