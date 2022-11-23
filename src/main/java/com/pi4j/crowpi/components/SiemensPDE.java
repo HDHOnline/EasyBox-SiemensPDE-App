@@ -19,35 +19,6 @@ import static java.lang.System.exit;
 import static java.lang.Thread.sleep;
 
 
-//Todo[v1]: stop and rerun this file not possible:
-/*
-[INFO]   [sshexec] Connecting to 100.107.160.70:22
-[INFO]   [sshexec] cmd : sudo java  --module-path /home/pi/deploy --module com.pi4j.crowpi/com.pi4j.crowpi.Launcher --demo
-Could not create socket on port 65000, another instance is probably already running.
-Exception in thread "main" com.pi4j.crowpi.helpers.InstanceAlreadyRunningException: Could not create socket on port 65000, another instance is probably already running.
-	at com.pi4j.crowpi@1.0-SNAPSHOT/com.pi4j.crowpi.helpers.SingletonAppHelper.initialize(SingletonAppHelper.java:24)
-	at com.pi4j.crowpi@1.0-SNAPSHOT/com.pi4j.crowpi.Launcher.execute(Launcher.java:173)
-	at com.pi4j.crowpi@1.0-SNAPSHOT/com.pi4j.crowpi.Launcher.main(Launcher.java:62)
-Caused by: java.net.BindException: Address already in use
-	at java.base/sun.nio.ch.Net.bind0(Native Method)
-	at java.base/sun.nio.ch.Net.bind(Net.java:555)
-	at java.base/sun.nio.ch.Net.bind(Net.java:544)
-	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:643)
-	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
-	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
-	at com.pi4j.crowpi@1.0-SNAPSHOT/com.pi4j.crowpi.helpers.SingletonAppHelper.initialize(SingletonAppHelper.java:15)
-	... 2 more
-[ERROR]   [sshexec] Remote command failed with exit status 1
-[INFO] Executed tasks
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  32.717 s
-[INFO] Finished at: 2022-10-25T16:59:59+02:00
-[INFO] ------------------------------------------------------------------------
-
-Process finished with exit code 0
- */
 public class SiemensPDE {
     final protected static char[] hexArray = "0123456789ABCDEF".toCharArray(); //lookup
     Logger logger = LoggerFactory.getLogger(SiemensPDE.class);
@@ -382,7 +353,12 @@ public class SiemensPDE {
                 garage.statusNightControl = Integer.parseInt(ini.get("values", "nightCTRL"));
                 garage.statusManualControl = Integer.parseInt(ini.get("values", "manualCTRL"));
 
+                garage.stationNumber = Integer.parseInt(ini.get("config", "StationNo"));
+                garage.lineNumber = Integer.parseInt(ini.get("config", "LineNo"));
+
                 logger.info("Readed information from data.ini: Calculated FreeSpacesTotal: "+garage.freeSpacesTotal+
+                        " StationNo: "+garage.stationNumber+
+                        " LineNo: "+garage.lineNumber+
                         " FreeSpacesShortTerm: "+garage.freeSpacesShortTerm+
                         " FreeSpacesLongTerm: "+garage.freeSpacesLongTerm+
                         " StatusGarage: "+garage.statusGarage+
