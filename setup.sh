@@ -12,17 +12,19 @@ sudo update-rc.d EasyBox-SiemensPDE defaults
 
 sudo systemctl disable hciuart
 
-cd /home/
-sudo mkdir logs
-sudo chmod 777 /home/logs
-sudo chown pi:pi /home/logs
-
 cd /home/pi/
 sudo mkdir deploy
 cd /home/pi/deploy/
 sudo cp /home/pi/EasyBox-SiemensPDE-App/out/artifacts/SiemensPDE_jar/SiemensPDE.jar SiemensPDE.jar
 sudo chmod 777 SiemensPDE.jar
 sudo chown pi:pi SiemensPDE.jar
+
+# create cronjobs SiemensPDE
+cd /etc/cron.5min
+sudo cp /home/pi/EasyBox-SiemensPDE-App/setup/EasyBox-cron-SiemensPDE EasyBox-cron-SiemensPDE
+sudo chmod 777 /etc/cron.5min/EasyBox-cron-SiemensPDE
+
+
 
 # cleanup
 cd /home/pi/
