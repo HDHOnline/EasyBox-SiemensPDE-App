@@ -11,5 +11,5 @@ fi
 if [ $(ps -A | grep -c $SERVICE) = 0 ];
 then
     echo "$(date) SiemensPDE dead. Bring back to live." >> $logfile
-    /etc/init.d/EasyBox-Matrix restart
+    /etc/init.d/EasyBox-SiemensPDE restart
 fi
