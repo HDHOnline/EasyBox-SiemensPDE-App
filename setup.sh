@@ -5,7 +5,7 @@ echo "Beginn Setup SiemensPDE App"
 # The whole repos was cloned to /home/pi/EasyBox-SiemensPDE-App by JFrog
 
 cd /etc/init.d/
-sudo cp /home/pi/EasyBox-SiemensPDE-App/setup/EasyBox-SiemensPDE SiemensPDE
+sudo cp /home/pi/EasyBox-SiemensPDE-App/setup/EasyBox-SiemensPDE EasyBox-SiemensPDE
 sudo chmod 755 /etc/init.d/EasyBox-SiemensPDE
 sudo update-rc.d EasyBox-SiemensPDE defaults
 # to delete EasyBox-SiemensPDE script: sudo update-rc.d -f EasyBox-SiemensPDE remove
