@@ -13,7 +13,9 @@ sudo update-rc.d EasyBox-SiemensPDE defaults
 sudo systemctl disable hciuart
 
 cd /home/pi/
-sudo mkdir deploy
+if [ ! -d "/home/pi/deploy/" ]; then
+    sudo mkdir -p "/home/pi/deploy"
+fi
 cd /home/pi/deploy/
 sudo cp /home/pi/EasyBox-SiemensPDE-App/out/artifacts/SiemensPDE_jar/SiemensPDE.jar SiemensPDE.jar
 sudo chmod 777 SiemensPDE.jar
