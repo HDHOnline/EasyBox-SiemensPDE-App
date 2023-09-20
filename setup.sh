@@ -1,7 +1,7 @@
 #! /bin/bash
 
 ############# SiemensPDE
-
+echo "Beginn Setup SiemensPDE App"
 # The whole repos was cloned to /home/pi/EasyBox-SiemensPDE-App by JFrog
 
 cd /etc/init.d/
@@ -29,6 +29,7 @@ sudo chmod 777 /etc/cron.5min/EasyBox-cron-SiemensPDE
 # cleanup
 cd /home/pi/
 sudo rm -r EasyBox-SiemensPDE-App
+echo "Ende Setup SiemensPDE App"
 
 
 
