@@ -3,12 +3,12 @@ logfile=/home/logs/cron.log
 SERVICE="SiemensPDE"
 
 # makes sure, that Matrix code always keeps running.
-if [ $(ps -A | grep -c $SERVICE) = 1 ];
+if [ $(ps -A | grep -c -w $SERVICE) = 1 ];
 then
     echo "$(date) SiemensPDE is running" >> $logfile
 fi
 
-if [ $(ps -A | grep -c $SERVICE) = 0 ];
+if [ $(ps -A | grep -c -w $SERVICE) = 0 ];
 then
     echo "$(date) SiemensPDE dead. Bring back to live." >> $logfile
     /etc/init.d/EasyBox-SiemensPDE restart
