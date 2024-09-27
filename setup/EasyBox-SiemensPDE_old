@@ -1,1 +1,57 @@
 
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          Für welches Programm ist das Script?
+# Required-Start:    
+# Required-Stop:     
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Kurze Beschreibung
+# Description:       Längere Beschreibung
+# zum loeschen des autostarts: sudo update-rc.d -f  EasyBox-SiemensPDE remove
+### END INIT INFO
+
+SERVICE="SiemensPDE"
+APPNAME="Serial2Siemens"
+
+# Actions
+case "$1" in
+    start)
+        # START
+  sleep 20
+	if pgrep -x "$SERVICE" >/dev/null
+	then
+    	  echo "$SERVICE is running"
+	  sudo pkill -9 -f $SERVICE
+	  sleep 2
+    	  cd /home/pi/deploy
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+	else
+    	  echo "$SERVICE stopped"
+    	  cd /home/pi/deploy
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+	fi
+        ;;
+    stop)
+        # STOP
+	  sudo pkill -9 -f $SERVICE
+        ;;
+    restart)
+        # RESTART
+	if pgrep -x "$SERVICE" >/dev/null
+	then
+    	  echo "$SERVICE is running"
+	  sudo pkill -9 -f $SERVICE
+	  sleep 2
+    	  cd /home/pi/deploy
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+	else
+    	  echo "$SERVICE stopped"
+    	  cd /home/pi/deploy
+    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
+	fi
+        ;;
+
+esac
+
+exit 0
