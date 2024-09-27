@@ -16,7 +16,7 @@ LOGFILE="/home/logs/SiemensPDE.log"
 
 # Überprüft, ob der Dienst läuft
 check_status() {
-    if pgrep -f "$SERVICE" >/dev/null; then
+    if pgrep -x "$SERVICE" >/dev/null; then
         echo "$SERVICE is running"
     else
         echo "$SERVICE is stopped"
@@ -26,7 +26,7 @@ check_status() {
 # Start des Dienstes
 start() {
     echo "Starting $SERVICE..."
-    if pgrep -f "$SERVICE" >/dev/null; then
+    if pgrep -x "$SERVICE" >/dev/null; then
         echo "$SERVICE is already running."
     else
         cd $JAR_PATH
@@ -39,7 +39,7 @@ start() {
 # Stoppen des Dienstes
 stop() {
     echo "Stopping $SERVICE..."
-    if pgrep -f "$SERVICE" >/dev/null; then
+    if pgrep -x "$SERVICE" >/dev/null; then
         sudo pkill -f "$SERVICE"
         echo "$SERVICE has been stopped."
     else
