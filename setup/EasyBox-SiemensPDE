@@ -16,7 +16,7 @@ LOGFILE="/home/logs/SiemensPDE.log"
 
 # Überprüft, ob der Dienst läuft
 check_status() {
-    if pgrep -x "$SERVICE" >/dev/null; then
+    if pgrep -f "$SERVICE" >/dev/null; then
         echo "$SERVICE is running"
     else
         echo "$SERVICE is stopped"
