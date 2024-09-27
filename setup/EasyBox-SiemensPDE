@@ -12,7 +12,7 @@
 SERVICE="SiemensPDE"
 APPNAME="Serial2Siemens"
 JAR_PATH="/home/pi/deploy"
-LOGFILE="/home/logs/SiemensPDE.log"
+LOGFILE="/home/logs/SiemensPDE-MH.log"
 
 # Überprüft, ob der Dienst läuft
 check_status() {
