@@ -1,56 +1,72 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          Für welches Programm ist das Script?
+# Provides:          SiemensPDE
 # Required-Start:    
 # Required-Stop:     
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Kurze Beschreibung
-# Description:       Längere Beschreibung
-# zum loeschen des autostarts: sudo update-rc.d -f  EasyBox-SiemensPDE remove
+# Short-Description: Start/Stop/Restart SiemensPDE Service
+# Description:       Verwaltet den SiemensPDE-Dienst.
 ### END INIT INFO
 
 SERVICE="SiemensPDE"
 APPNAME="Serial2Siemens"
+JAR_PATH="/home/pi/deploy"
+
+check_status() {
+    if pgrep -x "$SERVICE" >/dev/null; then
+        echo "$SERVICE is running"
+    else
+        echo "$SERVICE is stopped"
+    fi
+}
 
 # Actions
 case "$1" in
     start)
         # START
-  sleep 20
-	if pgrep -x "$SERVICE" >/dev/null
-	then
-    	  echo "$SERVICE is running"
-	  sudo pkill -9 -f $SERVICE
-	  sleep 2
-    	  cd /home/pi/deploy
-    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
-	else
-    	  echo "$SERVICE stopped"
-    	  cd /home/pi/deploy
-    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
-	fi
+        echo "Starting $SERVICE..."
+        sleep 20
+        if pgrep -x "$SERVICE" >/dev/null; then
+            echo "$SERVICE is already running. Restarting it..."
+            sudo pkill -9 -f $SERVICE
+            sleep 2
+        fi
+        cd $JAR_PATH
+        java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME &
+        sleep 2
+        check_status
         ;;
     stop)
         # STOP
-	  sudo pkill -9 -f $SERVICE
+        echo "Stopping $SERVICE..."
+        if pgrep -x "$SERVICE" >/dev/null; then
+            sudo pkill -9 -f $SERVICE
+            echo "$SERVICE has been stopped."
+        else
+            echo "$SERVICE is not running."
+        fi
         ;;
     restart)
         # RESTART
-	if pgrep -x "$SERVICE" >/dev/null
-	then
-    	  echo "$SERVICE is running"
-	  sudo pkill -9 -f $SERVICE
-	  sleep 2
-    	  cd /home/pi/deploy
-    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
-	else
-    	  echo "$SERVICE stopped"
-    	  cd /home/pi/deploy
-    	  java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME
-	fi
+        echo "Restarting $SERVICE..."
+        if pgrep -x "$SERVICE" >/dev/null; then
+            sudo pkill -9 -f $SERVICE
+            sleep 2
+        fi
+        cd $JAR_PATH
+        java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME &
+        sleep 2
+        check_status
         ;;
-
+    status)
+        # STATUS
+        check_status
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
 esac
 
 exit 0
