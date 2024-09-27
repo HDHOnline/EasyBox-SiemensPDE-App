@@ -12,55 +12,61 @@
 SERVICE="SiemensPDE"
 APPNAME="Serial2Siemens"
 JAR_PATH="/home/pi/deploy"
+LOGFILE="/home/logs/SiemensPDE.log"
 
+# Überprüft, ob der Dienst läuft
 check_status() {
-    if pgrep -x "$SERVICE" >/dev/null; then
+    if pgrep -f "$SERVICE" >/dev/null; then
         echo "$SERVICE is running"
     else
         echo "$SERVICE is stopped"
     fi
 }
 
-# Actions
+# Start des Dienstes
+start() {
+    echo "Starting $SERVICE..."
+    if pgrep -f "$SERVICE" >/dev/null; then
+        echo "$SERVICE is already running."
+    else
+        cd $JAR_PATH
+        java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME >> $LOGFILE 2>&1 &
+        sleep 2
+        check_status
+    fi
+}
+
+# Stoppen des Dienstes
+stop() {
+    echo "Stopping $SERVICE..."
+    if pgrep -f "$SERVICE" >/dev/null; then
+        sudo pkill -f "$SERVICE"
+        echo "$SERVICE has been stopped."
+    else
+        echo "$SERVICE is not running."
+    fi
+}
+
+# Neustarten des Dienstes
+restart() {
+    echo "Restarting $SERVICE..."
+    stop
+    sleep 2
+    start
+}
+
+# Hauptsteuerung für das Skript
 case "$1" in
     start)
-        # START
-        echo "Starting $SERVICE..."
-        sleep 20
-        if pgrep -x "$SERVICE" >/dev/null; then
-            echo "$SERVICE is already running. Restarting it..."
-            sudo pkill -9 -f $SERVICE
-            sleep 2
-        fi
-        cd $JAR_PATH
-        java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME &
-        sleep 2
-        check_status
+        start
         ;;
     stop)
-        # STOP
-        echo "Stopping $SERVICE..."
-        if pgrep -x "$SERVICE" >/dev/null; then
-            sudo pkill -9 -f $SERVICE
-            echo "$SERVICE has been stopped."
-        else
-            echo "$SERVICE is not running."
-        fi
+        stop
         ;;
     restart)
-        # RESTART
-        echo "Restarting $SERVICE..."
-        if pgrep -x "$SERVICE" >/dev/null; then
-            sudo pkill -9 -f $SERVICE
-            sleep 2
-        fi
-        cd $JAR_PATH
-        java -Dprogram.name=$SERVICE -jar $SERVICE.jar $APPNAME &
-        sleep 2
-        check_status
+        restart
         ;;
     status)
-        # STATUS
         check_status
         ;;
     *)
