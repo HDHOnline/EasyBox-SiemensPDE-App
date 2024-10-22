@@ -24,3 +24,6 @@ jobs:
 
       - name: Compile Java
         run: javac -d bin src/com/pi4j/crowpi/components/SiemensPDE.java
+
+      - name: Verify compiled class
+        run: ls -l bin/com/pi4j/crowpi/components/
