@@ -263,7 +263,8 @@ public class SiemensPDE {
         while ((serialBuffer.length() > 0) && (serialBuffer.indexOf(0x02) == 0)) {  //as long as 1F is at beginning (e.g. if more than 1 telegram is in buffer), do:
 
             int eotPos = serialBuffer.indexOf(0x03);                //eotPos = Position of EOT in the buffer-string
-
+// mh2 logger info
+                logger.info("Length of telegram: " + (eotPos + 1));
             if (eotPos == -1) {
                 break;
             }
@@ -279,17 +280,18 @@ public class SiemensPDE {
                 byte[] lineNo = extractLineNumberSiemensPDE(data[1], data[2]);
                 byte[] stationNo = extractStationNumberSiemensPDE(data[3], data[4]);
 
-// mh angepasst zur überpfrfung byte-länge
+// mh1  angepasst zur überpfrfung byte-länge
+                
                 byte command = data[5];  // Das Kommando-Byte
-logger.info("Received command byte: " + bytesToHex(new byte[]{command}));
+                logger.info("Received command byte: " + bytesToHex(new byte[]{command}));
 
                 byte[] cmd_tmp = new byte[1];
                 cmd_tmp[0] = command;
 
                 byte nightControl = data[6];
-                int eot = (data[7]);
+                int eot = (data[6]);                
                 logger.debug("EOT Code: " + eot);
-                byte checkSum = data[8];
+                byte checkSum = data[7];
                 //Todo[v2]: do something with the checkSum
                 //here the protocol is complete
 
@@ -302,6 +304,8 @@ logger.info("Received command byte: " + bytesToHex(new byte[]{command}));
                     logger.debug("message: " + bytesToHex(message));
                     //Todo[v2]: hand over command statement from data.ini (then we have to read it in at getValuesFromFile())? or response based on incoming message?
                     byte[] packageToSend = buildPackageSiemensPDE(lineNo, stationNo, (byte)0x32, message);
+// mh3 antwort  
+                    logger.info("Created response message: " + bytesToHex(packageToSend));
                     serial_B.writeBytes(packageToSend, packageToSend.length);
                     logger.info("Response finished: " + bytesToHex(packageToSend));
                 }
@@ -309,11 +313,15 @@ logger.info("Received command byte: " + bytesToHex(new byte[]{command}));
                 else if (command == 0x34) {  // 0x34 -> Status Request
                     logger.info("incoming telegram:" + serialBuffer +
                             "     - valid  Status Request with Command: "+bytesToHex(cmd_tmp));                      // just logging
-                    byte[] message = buildMessageSiemens0x33(lineNo, stationNo);
-                    logger.debug("message: " + bytesToHex(message));
+                    byte[] message = buildMessageSiemens0x33(lineNo, stationNo);                                    // erstllen der antwort
+                    logger.debug("message: " + bytesToHex(message));                                                // log der erstellten nachricht
+
+                    //senden der Antwort über die serielle schnittstelle
                     //Todo[v2]: hand over command statement from data.ini (then we have to read it in at getValuesFromFile())? or response based on incoming message?
                     byte[] packageToSend = buildPackageSiemensPDE(lineNo, stationNo, (byte) 0x33, message);
                     serial_B.writeBytes(packageToSend, packageToSend.length);
+                    int bytesWritten = serial_B.writeBytes(packageToSend, packageToSend.length);
+                    logger.info("Bytes written: " + bytesWritten);  // Anzahl der gesendeten Bytes;
                     logger.info("Response finished: " + bytesToHex(packageToSend));
                 } else {
                     logger.warn("Unsupported Command byte: " + bytesToHex(cmd_tmp)+". Can't handle telegram. Response with NAK(0x15)");
@@ -421,9 +429,16 @@ logger.info("Received command byte: " + bytesToHex(new byte[]{command}));
     //******************************************************************************************************
     //Todo[v2]: we are not handling lineNo & stationNo here. Add more in data.ini or delete from function?
     private byte[] buildMessageSiemens0x32(byte[] lineNo, byte[] stationNo) {
+        
+    // Logge die Startparameter (lineNo und stationNo)
+        logger.info("Building message for 0x32 command with LineNo: " + bytesToHex(lineNo) + " and StationNo: " + bytesToHex(stationNo));
 
-        byte[] result = new byte[39];
+        byte[] result = new byte[39];  // Antwortnachricht mit 39 Bytes erstellen
 
+     // Logge nach der Initialisierung des Arrays
+        logger.info("Initialized result array of length: " + result.length); 
+
+    // Beispiel für den Aufbau der Nachricht
         byte manualControl = IntToByteArray1(garage.statusManualControl)[0];
 
         int incomingShortTermParkers = garage.incomingShortTerm;
