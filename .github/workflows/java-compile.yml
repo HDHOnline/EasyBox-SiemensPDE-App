@@ -23,7 +23,7 @@ jobs:
           java-version: '17'
 
       - name: Compile Java
-        run: javac -d bin src/com/pi4j/crowpi/components/SiemensPDE.java
+        run: javac -d bin src/main/java/com/pi4j/crowpi/components/SiemensPDE.java
 
       - name: Verify compiled class
-        run: ls -l bin/com/pi4j/crowpi/components/
+        run: ls -l src/main/java/com/pi4j/crowpi/components/
