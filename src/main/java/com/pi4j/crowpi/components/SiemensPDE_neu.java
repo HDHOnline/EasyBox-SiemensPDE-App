@@ -279,7 +279,10 @@ public class SiemensPDE {
                 byte[] lineNo = extractLineNumberSiemensPDE(data[1], data[2]);
                 byte[] stationNo = extractStationNumberSiemensPDE(data[3], data[4]);
 
-                byte command = data[5];
+// mh angepasst zur überpfrfung byte-länge
+                byte command = data[5];  // Das Kommando-Byte
+logger.info("Received command byte: " + bytesToHex(new byte[]{command}));
+
                 byte[] cmd_tmp = new byte[1];
                 cmd_tmp[0] = command;
 
