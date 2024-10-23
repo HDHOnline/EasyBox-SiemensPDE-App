@@ -271,7 +271,7 @@ public class SiemensPDE {
 
 
             //received telegram is an status telegram
-            if (eotPos + 1 == 8) {                 // 03 at even index, so telegram is complete
+            if ((eotPos + 1 == 8) || (eotPos + 1 == 7)) {                 // 03 at even index, so telegram is complete
                 byte[] data = serialBuffer.substring(0, eotPos + 2).getBytes();         //take telegram from 02 to 03 in byte Array, called data
                 //extract StartCode
                 int start = (data[0]);
@@ -289,9 +289,18 @@ public class SiemensPDE {
                 cmd_tmp[0] = command;
 
                 byte nightControl = data[6];
-                int eot = (data[6]);                
-                logger.debug("EOT Code: " + eot);
+                int eot = (data[6]);
                 byte checkSum = data[7];
+
+                if (eotPos + 1 == 8) {
+                     eot = (data[7]);
+                     checkSum = data[8];
+
+                } else if (eotPos + 1 == 7){
+                     eot = (data[6]);
+                     checkSum = data[7];
+                }
+                logger.debug("EOT Code: " + eot);
                 //Todo[v2]: do something with the checkSum
                 //here the protocol is complete
 
