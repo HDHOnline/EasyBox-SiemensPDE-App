@@ -1,7 +1,7 @@
 ### aenderungen seite dem 23.10.2024
-SiemensPDE.jar vom 23.10.2024 00.04 Uhr --> Änderungen Siemens 7byte + Startbyte im repository SiemensPDE-App-Org
-SiemensPDE.jar vom 29.11.2024 18:09 Uhr --> Änderungen Siemens 8byte + Startbyte im repository SiemensPDE-App-org - oder in heilbronn K3
-SiemensPDE.jar vom 12.11.2024 08:57 Uhr --> Änderungen Siemens 3byte + Startbyte im repository SiemensPDE-App oder in goeppingen, kronprinz...
+# SiemensPDE.jar vom 23.10.2024 00.04 Uhr --> Änderungen Siemens 7byte + Startbyte im repository SiemensPDE-App-Org 
+# SiemensPDE.jar vom 29.11.2024 18:09 Uhr --> Änderungen Siemens 8byte + Startbyte im repository SiemensPDE-App-org - oder in heilbronn K3
+# SiemensPDE.jar vom 12.11.2024 08:57 Uhr --> Änderungen Siemens 3byte + Startbyte im repository SiemensPDE-App oder in goeppingen, kronprinz...
 
 
 
