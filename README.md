@@ -219,8 +219,6 @@ If you need to make changes to .json, you need to delete the old on local device
 - Usr: developer@hdh-onlinehandel.de
 - PW: MaypcugweosBat/
 
-- GitHub Private Token: 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
-
 ## Helpfull software
 - PacketSender
 - RealTerm
